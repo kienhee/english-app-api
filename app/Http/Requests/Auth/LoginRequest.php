@@ -5,7 +5,8 @@ namespace App\Http\Requests\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-class RegisterRequest extends FormRequest
+
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +24,8 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name' => 'required|string|max:150',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email',
             'password' => 'required|min:6',
-            'confirm_password' => 'required|same:password',
         ];
     }
     public function messages(): array
@@ -34,14 +33,8 @@ class RegisterRequest extends FormRequest
         return [
             'email.required' => 'Vui lòng nhập email',
             'email.email' => 'Email không hợp lệ',
-            'email.unique' => 'Email đã được sử dụng',
             'password.required' => 'Vui lòng nhập mật khẩu',
             'password.min' => 'Mật khẩu phải có ít nhất :min ký tự',
-            'confirm_password.required' => 'Vui lòng nhập xác nhận mật khẩu',
-            'confirm_password.same' => 'Mật khẩu không trùng khớp',
-            'full_name.required' => 'Vui lòng nhập họ và tên',
-            'full_name.string' => 'Tên phải là chuỗi',
-            'full_name.max' => 'Tên không được vượt quá :max ký tự',
         ];
     }
     protected function failedValidation(Validator $validator)
